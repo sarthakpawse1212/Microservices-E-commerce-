@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "Catalog_MS"
+		},
+		{
+			"path": "Order_Management_MS"
+		},
+		{
+			"path": "db"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Microservices"
+	}
+}

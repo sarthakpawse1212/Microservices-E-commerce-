@@ -1,0 +1,19 @@
+Initialize prisma
+npx prisma init --datasource-provider postgresql
+
+configure db url for schema file
+
+create model
+
+Migrate db
+npx prisma migrate dev --name init
+
+docker container start from db docker file
+docker compose up -d
+
+Drizzle for OM Service
+DB Migrations 
+
+Run Package.json scripts step by step
+db:generate
+db:migrate
