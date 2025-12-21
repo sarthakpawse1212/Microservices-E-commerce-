@@ -1,5 +1,7 @@
-Microservices-Based E-Commerce System
+*************************** Microservices-Based E-Commerce System ***********************************
+
 Project Summary
+
 This is a personal project where I designed and built an e-commerce system using a microservices approach. The focus of this project was not UI or visual design, 
 but understanding how real production systems are structured, how services communicate with each other, and how scalability and deployment are planned in real companies.
 The system is split into independent services, each with its own responsibility, database, and APIs. Even though the project is not deployed to production, 
@@ -17,7 +19,7 @@ Each service:
 A small React application is used only to test service integration and payment flows.
 
 Microservices Breakdown
-1. Catalog Service
+*************** 1. Catalog Service ***************
 Responsibility
 	• Manages product data and inventory
 	• Exposes REST APIs for product-related operations
@@ -27,7 +29,7 @@ Key Work
 	• Handles stock updates based on events from the Order service
 	• Independent datastore to avoid tight coupling with other services
 
-2. Order Service
+***************** 2. Order Service *******************
 Responsibility
 	• Manages cart (quote) creation and line items
 	• Handles order submission and order lifecycle
@@ -40,7 +42,7 @@ Key Work
 	• Coordinates with Catalog service to update stock through events
 This service acts as the core business workflow of the system.
 
-3. Payment Service
+****************** 3. Payment Service ************************
 Responsibility
 	• Handles payment processing
 	• Notifies other services about payment status
@@ -51,7 +53,7 @@ Key Work
 	• Does not directly depend on Order or Catalog service logic
 This design allows payment providers to be changed with minimal impact.
 
-4. User Authentication Service
+********************* 4. User Authentication Service ***************************
 Responsibility
 	• Manages user authentication and authorization
 	• Controls access to protected APIs
@@ -75,7 +77,7 @@ Communication & Security
 	• CORS configuration for cross-origin requests
 	• Services remain loosely coupled through events instead of direct dependencies
 
-Tech Stack
+********************** Tech Stack **************************
 	• Backend: Node.js, TypeScript
 	• Architecture: Microservices
 	• Messaging: Kafka
@@ -135,7 +137,7 @@ This project reflects how modern backend systems are built in real companies. It
 but also how services interact, how systems scale, and how deployments are planned in production environments.
 
 
-
+*******************************************************************************************************************************************
 
 Additional information about migrations and db creations 
 Initialize prisma
