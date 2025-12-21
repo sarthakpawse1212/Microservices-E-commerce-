@@ -1,3 +1,143 @@
+Microservices-Based E-Commerce System
+Project Summary
+This is a personal project where I designed and built an e-commerce system using a microservices approach. The focus of this project was not UI or visual design, 
+but understanding how real production systems are structured, how services communicate with each other, and how scalability and deployment are planned in real companies.
+The system is split into independent services, each with its own responsibility, database, and APIs. Even though the project is not deployed to production, 
+it is designed in a way that can be deployed using containerization and orchestration tools.
+
+Overall Architecture
+The application is built using four independent microservices, each handling a specific part of the e-commerce flow. 
+Services communicate using REST APIs for synchronous operations and Kafka events for asynchronous communication.
+
+Each service:
+	• Has its own codebase
+	• Has its own database
+	• Can be scaled independently
+	• Is containerized using Docker
+A small React application is used only to test service integration and payment flows.
+
+Microservices Breakdown
+1. Catalog Service
+Responsibility
+	• Manages product data and inventory
+	• Exposes REST APIs for product-related operations
+Key Work
+	• Product schema and database design
+	• CRUD APIs for products
+	• Handles stock updates based on events from the Order service
+	• Independent datastore to avoid tight coupling with other services
+
+2. Order Service
+Responsibility
+	• Manages cart (quote) creation and line items
+	• Handles order submission and order lifecycle
+Key Work
+	• Cart creation and update APIs
+	• Order placement logic
+	• Publishes Kafka events when an order is placed
+	• Consumes payment status events from the Payment service
+	• Updates order status based on payment results
+	• Coordinates with Catalog service to update stock through events
+This service acts as the core business workflow of the system.
+
+3. Payment Service
+Responsibility
+	• Handles payment processing
+	• Notifies other services about payment status
+Key Work
+	• Integrated Stripe in a loosely coupled way
+	• Processes payment requests
+	• Publishes Kafka events on payment success or failure
+	• Does not directly depend on Order or Catalog service logic
+This design allows payment providers to be changed with minimal impact.
+
+4. User Authentication Service
+Responsibility
+	• Manages user authentication and authorization
+	• Controls access to protected APIs
+Key Work
+	• User login and token generation
+	• JWT-based authentication
+	• Token validation for secured service calls
+	• Acts as a middleware layer for protected routes
+
+Data Management
+	• Each service has its own database based on its use case
+	• Used ORMs like Prisma and Drizzle
+	• Database schemas are versioned using migrations
+	• Single-command setup for database initialization and updates
+This avoids shared databases and keeps services independent.
+
+Communication & Security
+	• REST APIs for direct service calls
+	• Kafka for event-based communication
+	• JWT tokens for secure API access
+	• CORS configuration for cross-origin requests
+	• Services remain loosely coupled through events instead of direct dependencies
+
+Tech Stack
+	• Backend: Node.js, TypeScript
+	• Architecture: Microservices
+	• Messaging: Kafka
+	• Database: PostgreSQL / other service-specific stores
+	• ORMs: Prisma, Drizzle
+	• Search & throughput: Elasticsearch
+	• Authentication: JWT
+	• Frontend (for testing): React
+	• Containerization: Docker, Docker Compose
+
+Code Structure & Design Approach
+	• Clear separation of controller, service, and data layers
+	• Mix of class-based and functional patterns where appropriate
+	• Loosely coupled service layers
+	• Basic understanding of SOLID principles applied in service design
+	• Focus on readability and maintainability
+
+Deployment & Cloud Design (Planned Architecture)
+Although this project is not deployed, it is designed with a real deployment flow in mind.
+Container & CI/CD Flow
+	• Each service has its own Dockerfile
+	• All services can run locally using Docker Compose
+	• GitHub repository can be used to trigger build and test pipelines on push
+	• Unit tests and build checks before deployment
+
+Kubernetes & Scaling Plan
+	• Each microservice can be deployed as a separate Kubernetes deployment
+	• Horizontal scaling based on traffic
+	• Independent scaling for high-traffic services like Order and Catalog
+	• Health checks and rolling updates
+
+AWS Infrastructure Plan
+	• EC2 instances for running Kubernetes workloads
+	• Nginx as reverse proxy and API gateway
+	• Load balancer to distribute traffic across services
+	• AWS Secrets Manager for managing environment variables and sensitive configs
+	• Configuration handled through YAML files and environment variables
+	• Route53 to expose public URLs
+
+Challenges Faced
+	• Managing large configuration files across multiple services
+	• Setting up Kafka producers and consumers correctly
+	• Keeping service boundaries clean
+	• Handling async workflows like order → payment → status update
+	• Coordinating database migrations across services
+
+What This Project Shows
+	• Understanding of microservices architecture
+	• Experience with event-driven communication
+	• Knowledge of containerization and orchestration concepts
+	• Practical understanding of cloud deployment planning
+	• Ability to design systems that can scale
+	• Ownership of end-to-end backend design
+
+Why This Project Is Important
+This project reflects how modern backend systems are built in real companies. It shows that I understand not only how to write APIs, 
+but also how services interact, how systems scale, and how deployments are planned in production environments.
+
+
+
+
+Additional information about migrations and db creations 
 Initialize prisma
 npx prisma init --datasource-provider postgresql
 
