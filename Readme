@@ -159,3 +159,38 @@ DB Migrations
 Run Package.json scripts step by step
 db:generate
 db:migrate
+
+
+
+
+Recommended startup
+From repo root:
+
+docker compose up -d
+Then run migrations/setup:
+
+cd Catalog_MS
+npm install
+npx prisma migrate dev
+
+cd ..\Order_Management_MS
+npm install
+npm run db:migrate
+For User Service, there is no migration tool; it has raw SQL in User_Service\db.sql. Run:
+
+cd ..
+Get-Content User_Service\db.sql | docker compose exec -T user_db_server psql -U user_db -d user_service
+No DB migration is needed for Payment_Service.
+After that, start services roughly like this:
+
+cd Catalog_MS
+npm run dev
+
+cd Order_Management_MS
+npm run dev
+
+cd User_Service
+npm run dev
+
+cd Payment_Service
+npm run dev

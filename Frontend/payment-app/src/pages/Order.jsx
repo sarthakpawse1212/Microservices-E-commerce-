@@ -38,7 +38,7 @@ const Order = () => {
 
   const addToCart = async () => {
     try {
-      const response = await addCartApi(2, 1);
+      const response = await addCartApi(1319, 1);
       console.log("response", response);
       if (response.status === 200) {
         dispatch(setCart(response.data));

@@ -10,7 +10,7 @@ export const StratServer = async () => {
 
     process.on("uncaughtException", (err)=>{
         logger.error(err)
-        process.exit(1)
+        process.exit(1)  // Automatically restart the server used by kubernetes to decide stop or restart 0 / 1
     })
 }
 
